@@ -1,6 +1,6 @@
 ## DBSCAN 算法流程
 
-相比伪代码，过度简化了，感觉可能有点问题
+和书上伪代码的细节有点不一样
 
 ```py
 import numpy as np
@@ -43,12 +43,12 @@ def dbscan(X, eps, min_Pts):
         while len(queue) > 0:
             q = queue.pop(0)
             neighbor = findNeighbor(q, X, eps)
+            if len(neighbor) >= min_Pts:
+                core_pts.remove(q)
             for p in neighbor:
                 if cluster[p] == -1:
                     cluster[p] = k
                     queue.append(p)
-            if len(neighbor) >= min_Pts:
-                core_pts.remove(q)
 
         k += 1
 
